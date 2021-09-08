@@ -1,0 +1,56 @@
+{
+ "properties": {
+  "displayName": "Tenant Root Group-ML.workspaces允許的虛擬機器大小 SKU",
+  "policyType": "Custom",
+  "mode": "All",
+  "description": "此原則可讓您指定Microsoft.MachineLearningServices workspaces/computes 大小 SKU。Tenant Root Group",
+  "metadata": {
+   "category": "AzureteamLab",
+   "createdBy": "3bcba167-9e7f-432e-9aa1-f2266d73a673",
+   "createdOn": "2021-09-02T06:43:53.7051122Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "listOfAllowedSKUs": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "允許的大小 SKU",
+     "description": "可為虛擬機器指定之大小 SKU 的清單。",
+     "strongType": "VMSKUs"
+    },
+    "allowedValues": [
+     "standard_f8s",
+     "standard_f8s_V2",
+     "Standard_DS1_v2",
+     "Standard_D2s_v3"
+    ],
+    "defaultValue": [
+     "standard_f8s_V2"
+    ]
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.MachineLearningServices/workspaces/computes"
+     },
+     {
+      "not": {
+       "field": "Microsoft.MachineLearningServices/workspaces/computes/vmSize",
+       "in": "[parameters('listOfAllowedSKUs')]"
+      }
+     }
+    ]
+   },
+   "then": {
+    "effect": "Deny"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementGroups/664b5727-3322-4ff6-9e25-e9f04403b57c/providers/Microsoft.Authorization/policyDefinitions/9bf411b1-a0b0-432f-b678-4381ebe5e602",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "9bf411b1-a0b0-432f-b678-4381ebe5e602"
+}

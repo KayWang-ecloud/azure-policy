@@ -1,0 +1,55 @@
+{
+ "properties": {
+  "displayName": "Tenant Root Group-StorageAccounts_AllowedResourceTypes_Deny",
+  "policyType": "Custom",
+  "mode": "All",
+  "description": "Lab 需求為 storage Accounts Allowed ResourceTypes_Deny for Tenant Root Group",
+  "metadata": {
+   "category": "AzureteamLab",
+   "createdBy": "3bcba167-9e7f-432e-9aa1-f2266d73a673",
+   "createdOn": "2021-09-02T06:41:35.73529Z",
+   "updatedBy": "93d78ffb-f185-4051-b707-bb7504f2fc94",
+   "updatedOn": "2021-09-08T07:35:47.8660773Z"
+  },
+  "parameters": {
+   "listOfResourceTypesAllowed": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "允許的資源類型",
+     "description": "可部署之資源類型的清單。",
+     "strongType": "resourceTypes"
+    },
+    "allowedValues": [
+     "Microsoft.Portal/dashboards",
+     "Microsoft.Storage/storageAccounts",
+     "Microsoft.Storage/storageAccounts/blobServices",
+     "Microsoft.Storage/storageAccounts/fileservices",
+     "Microsoft.Security/policies",
+     "Microsoft.Authorization/policyAssignments",
+     "Microsoft.Authorization/roleAssignments",
+     "Microsoft.Advisor/configurations",
+     "Microsoft.Resources/subscriptions/resourceGroups",
+     "Microsoft.Authorization/roleDefinitions"
+    ]
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "not": {
+       "field": "type",
+       "in": "[parameters('listOfResourceTypesAllowed')]"
+      }
+     }
+    ]
+   },
+   "then": {
+    "effect": "deny"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementGroups/664b5727-3322-4ff6-9e25-e9f04403b57c/providers/Microsoft.Authorization/policyDefinitions/9bf411b1-a0b0-432f-b678-4381ebe5e5cf",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "9bf411b1-a0b0-432f-b678-4381ebe5e5cf"
+}

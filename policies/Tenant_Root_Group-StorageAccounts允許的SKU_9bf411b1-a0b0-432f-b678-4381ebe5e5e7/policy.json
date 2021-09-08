@@ -1,0 +1,53 @@
+{
+ "properties": {
+  "displayName": "Tenant Root Group-StorageAccounts允許的SKU",
+  "policyType": "Custom",
+  "mode": "All",
+  "description": "此原則可讓您指定Microsoft.Storage/storageAccounts/  SKU 為 Standard_LRS。 Tenant Root Group",
+  "metadata": {
+   "category": "AzureteamLab",
+   "createdBy": "3bcba167-9e7f-432e-9aa1-f2266d73a673",
+   "createdOn": "2021-09-02T06:42:24.629097Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "listOfAllowedSKUs": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "允許的大小 SKU",
+     "description": "可為 Storage Accounts指定之大小 SKU 的清單。",
+     "strongType": "SKU"
+    },
+    "allowedValues": [
+     "Standard_LRS"
+    ],
+    "defaultValue": [
+     "Standard_LRS"
+    ]
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Storage/storageAccounts"
+     },
+     {
+      "not": {
+       "field": "Microsoft.Storage/storageAccounts/sku.name",
+       "in": "[parameters('listOfAllowedSKUs')]"
+      }
+     }
+    ]
+   },
+   "then": {
+    "effect": "Deny"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementGroups/664b5727-3322-4ff6-9e25-e9f04403b57c/providers/Microsoft.Authorization/policyDefinitions/9bf411b1-a0b0-432f-b678-4381ebe5e5e7",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "9bf411b1-a0b0-432f-b678-4381ebe5e5e7"
+}

@@ -1,0 +1,38 @@
+name: manage-azure-policy-c55b3036
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Tenant_Root_Group-limits_Locations_9bf411b1-a0b0-432f-b678-4381ebe5e5b7/**'
+#      - 'policies/Tenant_Root_Group-StorageAccounts_AllowedResourceTypes_Deny_9bf411b1-a0b0-432f-b678-4381ebe5e5cf/**'
+#      - 'policies/Tenant_Root_Group-StorageAccounts允許的SKU_9bf411b1-a0b0-432f-b678-4381ebe5e5e7/**'
+#      - 'policies/Tenant_Root_Group-ML.workspaces允許的虛擬機器大小_SKU_9bf411b1-a0b0-432f-b678-4381ebe5e602/**'
+#      - .github/workflows/manage-azure-policy-c55b3036.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_c55b3036}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Tenant_Root_Group-limits_Locations_9bf411b1-a0b0-432f-b678-4381ebe5e5b7/**
+          policies/Tenant_Root_Group-StorageAccounts_AllowedResourceTypes_Deny_9bf411b1-a0b0-432f-b678-4381ebe5e5cf/**
+          policies/Tenant_Root_Group-StorageAccounts允許的SKU_9bf411b1-a0b0-432f-b678-4381ebe5e5e7/**
+          policies/Tenant_Root_Group-ML.workspaces允許的虛擬機器大小_SKU_9bf411b1-a0b0-432f-b678-4381ebe5e602/**
